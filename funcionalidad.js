@@ -1,5 +1,5 @@
 // Cambia esta URL cuando lo subas a Render
-const API_URL = "https://calculadora-java-kykd.onrender.com"; 
+const API_URL = "https://calculadora-java-kykd.onrender.com/api"; 
 
 async function llamarApi(tipo, operacion) {
     const a = document.getElementById('numA').value;
