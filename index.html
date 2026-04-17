@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Pro - PHP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculadora-card">
+        <h1>Calculadora PHP</h1>
+        
+        <div class="inputs-principales">
+            <input type="number" id="numA" value="0">
+            <input type="number" id="numB" value="0">
+        </div>
+
+        <div class="operaciones-container">
+            <div class="fila-op">
+                <span>SUMA</span>
+                <div class="botones">
+                    <button class="btn path" onclick="llamarApi('path', 'suma')">Path</button>
+                    <button class="btn query" onclick="llamarApi('query', 'suma')">Query</button>
+                    <button class="btn body" onclick="llamarApi('body', 'suma')">Body</button>
+                </div>
+            </div>
+
+            <div class="fila-op">
+                <span>RESTA</span>
+                <div class="botones">
+                    <button class="btn path" onclick="llamarApi('path', 'resta')">Path</button>
+                    <button class="btn query" onclick="llamarApi('query', 'resta')">Query</button>
+                    <button class="btn body" onclick="llamarApi('body', 'resta')">Body</button>
+                </div>
+            </div>
+
+            <div class="fila-op">
+                <span>MULTIPLICACIÓN</span>
+                <div class="botones">
+                    <button class="btn path" onclick="llamarApi('path', 'multiplicacion')">Path</button>
+                    <button class="btn query" onclick="llamarApi('query', 'multiplicacion')">Query</button>
+                    <button class="btn body" onclick="llamarApi('body', 'multiplicacion')">Body</button>
+                </div>
+            </div>
+
+            <div class="fila-op">
+                <span>DIVISIÓN</span>
+                <div class="botones">
+                    <button class="btn path" onclick="llamarApi('path', 'division')">Path</button>
+                    <button class="btn query" onclick="llamarApi('query', 'division')">Query</button>
+                    <button class="btn body" onclick="llamarApi('body', 'division')">Body</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pantalla-resultado" id="display">
+            Resultado aparecerá aquí
+        </div>
+    </div>
+
+    <script src="funcionalidad.js"></script>
+</body>
+</html>
