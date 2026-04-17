@@ -1,38 +1,35 @@
-// Cambia esta URL cuando lo subas a Render
-const API_URL = "https://calculadora-java-kykd.onrender.com/api"; 
+// Asegúrate de poner la URL completa y absoluta de Render
+const API_URL = "https://calculadora-java-kykd.onrender.com/api";
 
-async function llamarApi(tipo, operacion) {
-    const a = document.getElementById('numA').value;
-    const b = document.getElementById('numB').value;
-    const display = document.getElementById('display');
+function llamarApi(op, metodo, a, b) {
+    let url = "";
     
-    let urlFinal = API_URL;
-    let config = { method: 'GET' };
-
-    try {
-        if (tipo === 'path') {
-            // Formato: index.php/suma/10/5
-            urlFinal = `${API_URL}/${operacion}/${a}/${b}`;
-        } 
-        else if (tipo === 'query') {
-            // Formato: index.php?op=suma&a=10&b=5
-            urlFinal = `${API_URL}?op=${operacion}&a=${a}&b=${b}`;
-        } 
-        else if (tipo === 'body') {
-            // Formato: POST con JSON
-            config = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ op: operacion, a: parseFloat(a), b: parseFloat(b) })
-            };
-        }
-
-        const respuesta = await fetch(urlFinal, config);
-        const datos = await respuesta.json();
-        
-        display.innerText = `Resultado (${tipo.toUpperCase()}): ${datos.resultado}`;
-    } catch (error) {
-        display.innerText = "Error de conexión";
-        console.error(error);
+    // Construcción de la URL completa
+    if (metodo === 'PATH') {
+        url = `${API_URL}/${op}/path/${a}/${b}`;
+    } else if (metodo === 'QUERY') {
+        url = `${API_URL}/${op}/query?a=${a}&b=${b}`;
+    } else if (metodo === 'BODY') {
+        url = `${API_URL}/${op}/body`;
+        // Para BODY usamos POST
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ a: parseFloat(a), b: parseFloat(b) })
+        })
+        .then(res => res.json())
+        .then(data => alert("Resultado: " + data.resultado))
+        .catch(err => console.error("Error:", err));
+        return; // Salimos aquí porque el fetch es distinto
     }
+
+    // Para PATH y QUERY usamos GET
+    fetch(url)
+        .then(res => res.json())
+        .then(data => alert("Resultado: " + data.resultado))
+        .catch(err => {
+            console.error("URL fallida:", url);
+            console.error("Error:", err);
+            alert("Error de conexión. Revisa la consola (F12).");
+        });
 }
