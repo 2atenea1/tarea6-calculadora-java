@@ -6,7 +6,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+@CrossOrigin(origins = "https://lanastudionline.com") // IMPORTANTE: Sin '/' al final
 public class CalculadoraController {
 
     // 1. PATH: /api/suma/path/10/5
