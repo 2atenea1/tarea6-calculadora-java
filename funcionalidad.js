@@ -1,35 +1,36 @@
-// Asegúrate de poner la URL completa y absoluta de Render
+// Asegúrate de que esta URL sea exactamente la de tu servicio en Render
 const API_URL = "https://calculadora-java-kykd.onrender.com/api";
 
 function llamarApi(op, metodo, a, b) {
     let url = "";
-    
-    // Construcción de la URL completa
+    let options = { method: 'GET' };
+
+    // Construcción precisa de las rutas según tu Controlador Java
     if (metodo === 'PATH') {
         url = `${API_URL}/${op}/path/${a}/${b}`;
     } else if (metodo === 'QUERY') {
         url = `${API_URL}/${op}/query?a=${a}&b=${b}`;
     } else if (metodo === 'BODY') {
         url = `${API_URL}/${op}/body`;
-        // Para BODY usamos POST
-        fetch(url, {
+        options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ a: parseFloat(a), b: parseFloat(b) })
-        })
-        .then(res => res.json())
-        .then(data => alert("Resultado: " + data.resultado))
-        .catch(err => console.error("Error:", err));
-        return; // Salimos aquí porque el fetch es distinto
+        };
     }
 
-    // Para PATH y QUERY usamos GET
-    fetch(url)
-        .then(res => res.json())
-        .then(data => alert("Resultado: " + data.resultado))
-        .catch(err => {
-            console.error("URL fallida:", url);
-            console.error("Error:", err);
-            alert("Error de conexión. Revisa la consola (F12).");
+    console.log("Llamando a:", url); // Esto te dirá en la consola si la URL es correcta
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) throw new Error("Error en la respuesta: " + response.status);
+            return response.json();
+        })
+        .then(data => {
+            alert("Resultado: " + data.resultado);
+        })
+        .catch(error => {
+            console.error("Error detectado:", error);
+            alert("Error: Revisa la consola F12 para más detalles.");
         });
 }
